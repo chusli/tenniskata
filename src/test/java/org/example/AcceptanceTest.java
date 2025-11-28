@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AcceptanceTest {
 
     @Test
-    void name() {
+    void twoToOne() {
         Set set = new Set(Player.ONE);
         set.addPoint(Player.ONE);
         set.addPoint(Player.TWO);
@@ -15,4 +15,16 @@ class AcceptanceTest {
 
         assertThat(set.printScore()).isEqualTo("Server: ONE - Thirty - Fifteen");
     }
+
+
+    @Test
+    void oneToOne() {
+        Set set = new Set(Player.ONE);
+        set.addPoint(Player.TWO);
+        set.addPoint(Player.ONE);
+
+        assertThat(set.printScore()).isEqualTo("Server: ONE - Fifteen - Fifteen");
+    }
+
+
 }
