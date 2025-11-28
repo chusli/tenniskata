@@ -10,7 +10,6 @@ public class Set {
 
     public Set(Player server) {
         this.server = server;
-
     }
 
     public void addPoint(Player player) {
@@ -22,7 +21,30 @@ public class Set {
     }
 
     public String printScore() {
-        return "Server: %s - %s - %s".formatted(server.name(), formatScore(serverScore), formatScore(receiverScore));
+        return "Server: %s - %s".formatted(server.name(), format());
+    }
+
+    private String format() {
+        if (regularScore()) {
+            return formatScore(serverScore) + " " + formatScore(receiverScore);
+        } else if (deuce()) {
+            return "Deuce";
+        } else if (game()) {
+            return "Game";
+        }
+        return "Advantage %s".formatted(serverScore > receiverScore ? "Server" : "Receiver");
+    }
+
+    private boolean game() {
+        return Math.abs(serverScore - receiverScore) >= 2;
+    }
+
+    private boolean deuce() {
+        return serverScore == receiverScore;
+    }
+
+    private boolean regularScore() {
+        return serverScore < 4 && receiverScore < 4;
     }
 
     private String formatScore(int score) {
